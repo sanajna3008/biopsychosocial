@@ -1,36 +1,26 @@
-function analyzeBPS() {
-    let sleep = parseInt(document.getElementById("sleep").value);
+function analyze() {
+    let sleep = document.getElementById("sleep").value;
     let exercise = document.getElementById("exercise").value;
     let social = document.getElementById("social").value;
 
-    let result = "";
-    let recommendation = "";
-
-    // AI-like scoring
     let score = 0;
 
-    if (sleep >= 7) score++;
-    if (exercise === "Sometimes" || exercise === "Regularly") score++;
-    if (social === "Yes") score++;
+    // Sleep logic
+    if (sleep >= 7) score += 2;
+    else if (sleep >= 5) score += 1;
 
-    // Based on score decide category
-    if (score === 3) {
-        result = "✔ Balanced lifestyle detected!";
-        recommendation = "Great job! Maintain your healthy sleep, exercise, and social habits.";
-    }
-    else if (score === 2) {
-        result = "⚠ Moderately balanced lifestyle.";
-        recommendation = "Improve one area such as sleep, exercise, or social interaction.";
-    }
-    else if (score === 1) {
-        result = "❗ Unbalanced lifestyle detected.";
-        recommendation = "Focus on improving your sleep, exercise, or social habits.";
-    }
-    else {
-        result = "🚨 High risk lifestyle pattern.";
-        recommendation = "Consider improving all three areas for better well-being.";
-    }
+    // Exercise logic
+    if (exercise === "regularly") score += 2;
+    else if (exercise === "sometimes") score += 1;
 
-    document.getElementById("result").innerHTML = result;
-    document.getElementById("recommendation").innerHTML = recommendation;
+    // Social logic
+    if (social === "yes") score += 2;
+
+    let resultText = "";
+
+    if (score >= 5) resultText = "Your biopsychosocial wellness is GOOD 😊";
+    else if (score >= 3) resultText = "Your wellness is AVERAGE 🙂";
+    else resultText = "Your wellness is LOW. Try improving lifestyle habits 😟";
+
+    document.getElementById("result").innerHTML = <h3>${resultText}</h3>;
 }
